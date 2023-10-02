@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://nmap.org/nsedoc/scripts/modbus-discover.html#script-args -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>modbus-discover NSE script — Nmap Scripting Engine documentation</title>
+<meta name="description" content="How to use the modbus-discover NSE script: examples, script-args, and references.">
+
+<link rel="stylesheet" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/luadoc.css" type="text/css">
+<script type="text/javascript" async="" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/js"></script><script async="" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/analytics.js"></script><script async="" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/luadoc.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#2A0D45">
+<link rel="preload" as="image" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/sitelogo.png" imagesizes="168px" imagesrcset="/images/sitelogo.png, /images/sitelogo-2x.png 2x">
+<link rel="preload" as="image" href="https://nmap.org/shared/images/nst-icons.svg">
+<link rel="stylesheet" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst.css">
+<script async="" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst.js"></script>
+<link rel="stylesheet" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-foot.css" media="all" onload="this.media=&#39;all&#39;">
+<link rel="stylesheet" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/site.css">
+<!--Google Analytics Code-->
+<link rel="preload" href="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/analytics.js" as="script">
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-11009417-1', 'auto');
+ga('send', 'pageview');
+</script>
+<!--END Google Analytics Code-->
+<meta name="ROBOTS" content="NOARCHIVE">
+<link rel="shortcut icon" href="https://nmap.org/shared/images/tiny-eyeicon.png" type="image/png">
+<style></style></head>
+<body><div id="nst-wrapper">
+
+<div id="menu">
+ <div class="blur">
+  <header id="nst-head">
+
+    <a id="menu-open" href="https://nmap.org/nsedoc/scripts/modbus-discover.html#menu" aria-label="Open menu">
+     <img width="44" height="44" alt="" aria-hidden="true" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons.svg">
+    </a>
+    <a id="menu-close" href="https://nmap.org/nsedoc/scripts/modbus-discover.html#" aria-label="Close menu">
+     <img width="44" height="44" alt="" aria-hidden="true" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(1).svg">
+    </a>
+
+   <a id="nst-logo" href="https://nmap.org/" aria-label="Home page">
+    <img alt="Home page logo" srcset="/images/sitelogo.png, /images/sitelogo-2x.png 2x" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/sitelogo.png" onerror="this.onerror=null;this.srcset=this.src" height="90" width="168"></a>
+
+   <nav id="nst-gnav" style="height: auto; visibility: visible;">
+    <a class="nlink" href="https://nmap.org/" style="display: none;">Nmap.org</a>
+    <a class="nlink" href="https://npcap.com/">Npcap.com</a>
+    <a class="nlink" href="https://seclists.org/">Seclists.org</a>
+    <a class="nlink" href="https://sectools.org/">Sectools.org</a>
+    <a class="nlink" href="https://insecure.org/">Insecure.org</a>
+   </nav>
+
+   <form class="nst-search" id="nst-head-search" action="https://nmap.org/search/">
+    <input class="nst-search-q" name="q" type="search" placeholder="Site Search">
+    <button class="nst-search-button" title="Search">
+     <img style="width:100%;aspect-ratio:1/1;" alt="" aria-hidden="true" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(2).svg">
+     </button>
+   </form>
+
+  </header>
+ </div>
+</div>
+
+<main id="nst-content">
+
+<nav id="nst-sitenav">
+<a class="nlink" href="https://nmap.org/download.html">Download</a>
+<a class="nlink" href="https://nmap.org/book/man.html">Reference Guide</a>
+<a class="nlink" href="https://nmap.org/book/">Book</a>
+<a class="nlink" href="https://nmap.org/docs.html">Docs</a>
+<a class="nlink" href="https://nmap.org/zenmap/">Zenmap GUI</a>
+<a class="nlink" href="https://nmap.org/movies/">In the Movies</a>
+</nav>
+
+
+<div id="nse-main">
+
+<nav id="nse-nav">
+
+<div id="nse-nav-general">
+<a href="https://nmap.org/nsedoc/index.html" class="nav-head">NSEDoc</a>
+<ul class="contents"><li><a href="https://nmap.org/nsedoc/index.html">NSEDoc Portal</a>
+	</li><li><a href="https://nmap.org/book/nse.html">NSE Documentation</a>
+	</li><li><a href="https://nmap.org/book/nse-api.html">Nmap API</a>
+	</li><li><a href="https://nmap.org/book/nse-tutorial.html">NSE Tutorial</a>
+</li></ul>
+</div>
+
+
+<div id="nse-nav-scripts">
+<a href="https://nmap.org/nsedoc/scripts/" class="nav-head">Scripts</a>
+<ul class="contents"></ul>
+</div>
+
+
+
+<div id="nse-nav-lib">
+<a href="https://nmap.org/nsedoc/lib/" class="nav-head">Libraries</a>
+<ul class="contents"></ul>
+</div>
+
+
+<div id="nse-nav-cat">
+<a href="https://nmap.org/nsedoc/categories/" class="nav-head">Categories</a>
+<ul class="contents">
+<li><a href="https://nmap.org/nsedoc/categories/auth.html">auth</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/broadcast.html">broadcast</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/brute.html">brute</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/default.html">default</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/discovery.html">discovery</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/dos.html">dos</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/exploit.html">exploit</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/external.html">external</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/fuzzer.html">fuzzer</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/intrusive.html">intrusive</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/malware.html">malware</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/safe.html">safe</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/version.html">version</a>
+  </li><li><a href="https://nmap.org/nsedoc/categories/vuln.html">vuln</a>
+  
+</li></ul>
+</div>
+
+</nav>
+
+<div id="nse-content">
+
+
+<nav class="file-nav">
+  <a href="https://nmap.org/nsedoc/scripts/modbus-discover.html#script-args">Script Arguments</a>
+  <a href="https://nmap.org/nsedoc/scripts/modbus-discover.html#usage">Example Usage</a>
+  <a href="https://nmap.org/nsedoc/scripts/modbus-discover.html#output">Script Output</a>
+</nav>
+<h1>Script <code>modbus-discover</code></h1>
+<p>
+<a href="https://nmap.org/book/nse-script-format.html#nse-format-rules">Script types</a>:
+portrule
+<br>
+
+  Categories:
+  <i><a href="https://nmap.org/nsedoc/categories/discovery.html">discovery</a></i>, <i><a href="https://nmap.org/nsedoc/categories/intrusive.html">intrusive</a></i>
+  <br>
+
+Download: <a href="https://svn.nmap.org/nmap/scripts/modbus-discover.nse">https://svn.nmap.org/nmap/scripts/modbus-discover.nse</a>
+</p>
+
+
+<h2 id="summary">Script Summary</h2>
+<p>
+Enumerates SCADA Modbus slave ids (sids) and collects their device information.
+</p>
+<p>
+Modbus is one of the popular SCADA protocols. This script does Modbus device
+information disclosure. It tries to find legal sids (slave ids) of Modbus
+devices and to get additional information about the vendor and firmware. This
+script is improvement of modscan python utility written by Mark Bristow.
+</p>
+<p>
+Information about MODBUS protocol and security issues:
+</p><ul>
+<li>MODBUS application protocol specification:  <a href="http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf">http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b.pdf</a>
+</li>
+<li>Defcon 16 Modscan presentation: <a href="https://www.defcon.org/images/defcon-16/dc16-presentations/defcon-16-bristow.pdf">https://www.defcon.org/images/defcon-16/dc16-presentations/defcon-16-bristow.pdf</a>
+</li>
+<li>Modscan utility is hosted at google code: <a href="http://code.google.com/p/modscan/">http://code.google.com/p/modscan/</a></li>
+</ul>
+
+
+
+
+
+  <h2 id="script-args">Script Arguments</h2>
+  <dl class="list">
+    <dt class="name">aggressive</dt> <dd><p>
+- boolean value defines find all or just first sid</p>
+</dd>
+    
+  </dl>
+
+
+<h2 id="usage">Example Usage</h2>
+
+  <pre>nmap --script modbus-discover.nse --script-args='modbus-discover.aggressive=true' -p 502 &lt;host&gt;
+</pre>
+
+
+
+  <h2 id="output"> Script Output </h2>
+<pre>PORT    STATE SERVICE
+502/tcp open  modbus
+| modbus-discover:
+|   sid 0x64:
+|     Slave ID data: \xFA\xFFPM710PowerMeter
+|     Device identification: Schneider Electric PM710 v03.110
+|   sid 0x96:
+|_    error: GATEWAY TARGET DEVICE FAILED TO RESPONSE
+</pre>
+
+
+
+  <h2 id="requires"> Requires </h2>
+  <ul>
+  <li><a href="https://nmap.org/nsedoc/lib/comm.html">comm</a>
+  </li><li><a href="https://nmap.org/nsedoc/lib/nmap.html">nmap</a>
+  </li><li><a href="https://nmap.org/nsedoc/lib/shortport.html">shortport</a>
+  </li><li><a href="https://nmap.org/nsedoc/lib/stdnse.html">stdnse</a>
+  </li><li><a href="https://nmap.org/nsedoc/scripts/modbus-discover.html">string</a>
+  </li><li><a href="https://nmap.org/nsedoc/scripts/modbus-discover.html">table</a>
+  
+  </li></ul>
+
+
+<hr>
+
+
+<p><b>Author:</b>
+</p><ul class="authors_list">
+<li>Alexander Rudakov
+
+</li></ul>
+
+
+
+<p><b>License: </b> Same as Nmap--See <a href="https://nmap.org/book/man-legal.html">https://nmap.org/book/man-legal.html</a></p>
+
+
+
+
+
+
+
+
+
+
+</div> <!-- id="nse-content" -->
+</div> <!-- id="nse-main" -->
+</main><!-- content -->
+
+<footer id="nst-foot">
+   <form class="nst-search" id="nst-foot-search" action="https://nmap.org/search/">
+    <input class="nst-search-q" name="q" type="search" placeholder="Site Search">
+    <button class="nst-search-button" title="Search">
+     <img style="width:100%;aspect-ratio:1/1;" alt="" aria-hidden="true" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(2).svg">
+     </button>
+   </form>
+<div class="flexlists">
+<div class="fl-unit">
+<h2><a class="nlink" href="https://nmap.org/">Nmap Security Scanner</a></h2>
+<ul>
+<li><a class="nlink" href="https://nmap.org/book/man.html">Ref Guide</a>
+</li><li><a class="nlink" href="https://nmap.org/book/install.html">Install Guide</a>
+</li><li><a class="nlink" href="https://nmap.org/docs.html">Docs</a>
+</li><li><a class="nlink" href="https://nmap.org/download.html">Download</a>
+</li><li><a class="nlink" href="https://nmap.org/oem/">Nmap OEM</a>
+</li></ul>
+</div>
+<div class="fl-unit">
+<h2><a class="nlink" href="https://npcap.com/">Npcap packet capture</a></h2>
+<ul>
+<li><a class="nlink" href="https://npcap.com/guide/">User's Guide</a>
+</li><li><a class="nlink" href="https://npcap.com/guide/npcap-devguide.html#npcap-api">API docs</a>
+</li><li><a class="nlink" href="https://npcap.com/#download">Download</a>
+</li><li><a class="nlink" href="https://npcap.com/oem/">Npcap OEM</a>
+</li></ul>
+</div>
+<div class="fl-unit">
+<h2><a class="nlink" href="https://seclists.org/">Security Lists</a></h2>
+<ul>
+<li><a class="nlink" href="https://seclists.org/nmap-announce/">Nmap Announce</a>
+</li><li><a class="nlink" href="https://seclists.org/nmap-dev/">Nmap Dev</a>
+</li><li><a class="nlink" href="https://seclists.org/fulldisclosure/">Full Disclosure</a>
+</li><li><a class="nlink" href="https://seclists.org/oss-sec/">Open Source Security</a>
+</li><li><a class="nlink" href="https://seclists.org/dataloss/">BreachExchange</a>
+</li></ul>
+</div>
+<div class="fl-unit">
+<h2><a class="nlink" href="https://sectools.org/">Security Tools</a></h2>
+<ul>
+<li><a class="nlink" href="https://sectools.org/tag/vuln-scanners/">Vuln scanners</a>
+</li><li><a class="nlink" href="https://sectools.org/tag/pass-audit/">Password audit</a>
+</li><li><a class="nlink" href="https://sectools.org/tag/web-scanners/">Web scanners</a>
+</li><li><a class="nlink" href="https://sectools.org/tag/wireless/">Wireless</a>
+</li><li><a class="nlink" href="https://sectools.org/tag/sploits/">Exploitation</a>
+</li></ul>
+</div>
+<div class="fl-unit">
+<h2><a class="nlink" href="https://insecure.org/">About</a></h2>
+<ul>
+<li><a class="nlink" href="https://insecure.org/fyodor/">About/Contact</a>
+</li><li><a class="nlink" href="https://insecure.org/privacy.html">Privacy</a>
+</li><li><a class="nlink" href="https://insecure.org/advertising.html">Advertising</a>
+</li><li><a class="nlink" href="https://nmap.org/npsl/">Nmap Public Source License</a>
+</li></ul>
+</div>
+<div class="fl-unit social-links">
+<a class="nlink" href="https://twitter.com/nmap" title="Visit us on Twitter">
+ <img width="32" height="32" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(3).svg" alt="" aria-hidden="true">
+ </a>
+<a class="nlink" href="https://facebook.com/nmap" title="Visit us on Facebook">
+ <img width="32" height="32" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(4).svg" alt="" aria-hidden="true">
+ </a>
+<a class="nlink" href="https://github.com/nmap/" title="Visit us on Github">
+ <img width="32" height="32" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(5).svg" alt="" aria-hidden="true">
+ </a>
+<a class="nlink" href="https://reddit.com/r/nmap/" title="Discuss Nmap on Reddit">
+ <img width="32" height="32" src="./modbus-discover NSE script — Nmap Scripting Engine documentation_files/nst-icons(6).svg" alt="" aria-hidden="true">
+ </a>
+</div>
+</div>
+</footer>
+
+</div><!-- wrapper -->
+
+
+
+
+</body></html>
