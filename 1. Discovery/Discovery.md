@@ -15,4 +15,23 @@ https://github.com/google/tsunami-security-scanner.git
       - nmap
       - ncrack
           -  https://github.com/nmap/ncrack.git
-      
+
+___________________________________________
+## SecretScanner
+https://github.com/deepfence/SecretScanner.git
+
+____________________________________________
+## ATSCAN
+https://github.com/AlisamTechnology/ATSCAN.git
+
+____________________________________________
+## log4jcheck
+https://github.com/NorthwaveSecurity/log4jcheck.git
+
+____________________________________________
+## Judge-Jury-and-Executable
+https://github.com/AdamWhiteHat/Judge-Jury-and-Executable.git
+
+____________________________________________
+
+____________________________________________
