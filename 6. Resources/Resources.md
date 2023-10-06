@@ -1,3 +1,6 @@
+## SecLists
+https://github.com/danielmiessler/SecLists.git
+_______________________________________________________________________________
 ## Powershell-Scripts-for-Hackers-and-Pentesters
 https://github.com/Whitecat18/Powershell-Scripts-for-Hackers-and-Pentesters.git
 
